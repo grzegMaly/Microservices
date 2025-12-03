@@ -1,10 +1,11 @@
 /.idea/inspectionProfiles/Project_Default.xml
-/.idea/.gitignore
-/.idea/section4.iml
+/.idea/workspace.xml
 /.idea/modules.xml
 /.idea/encodings.xml
+/.idea/section4.iml
 /.idea/misc.xml
-/.idea/compiler.xml
-/.idea/vcs.xml
-/.idea/workspace.xml
 /.idea/jarRepositories.xml
+/.idea/vcs.xml
+/.idea/compiler.xml
+/.idea/.gitignore
+/.idea/sqldialects.xml
