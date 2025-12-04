@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: accounts
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  config:
+    import:
+      - "application-qa.yaml"
+      - "application-prod.yaml"
+  profiles:
+    active:
+      - "qa"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to Bank accounts related local APIs"
+  contactDetails:
+    name: "Mordinia - Dev"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 123123123
+    - 321321321

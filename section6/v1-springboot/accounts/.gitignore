@@ -1,0 +1,15 @@
+/.mvn/wrapper/maven-wrapper.properties
+/.gitattributes
+/HELP.md
+/mvnw
+/mvnw.cmd
+/target/
+/target/accounts-0.0.1-SNAPSHOT.jar.original
+/target/generated-sources/
+/target/surefire-reports/
+/target/test-classes/
+/target/generated-test-sources/
+/target/maven-archiver/
+/target/classes/
+/target/accounts-0.0.1-SNAPSHOT.jar
+/target/maven-status/
