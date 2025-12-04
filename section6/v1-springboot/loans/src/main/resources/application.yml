@@ -1,0 +1,36 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: loans
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import:
+      - "application-qa.yml"
+      - "application-prod.yml"
+  profiles:
+    active: "prod"
+
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to Bank loans related local APIs "
+  contactDetails:
+    name: "Mordinia - Developer"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 452456217
+    - 546764934
