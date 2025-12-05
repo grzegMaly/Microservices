@@ -9,3 +9,6 @@
 /.idea/vcs.xml
 /.idea/modules.xml
 /.idea/v2-spring-cloud-config.iml
+/docker-compose/default/.env
+/docker-compose/prod/.env
+/docker-compose/qa/.env
