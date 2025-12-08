@@ -1,0 +1,15 @@
+/.idea/workspace.xml
+/.idea/jarRepositories.xml
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/encodings.xml
+/.idea/compiler.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/v1-springboot.iml
+/.idea/vcs.xml
+/.idea/modules.xml
+/.idea/v2-spring-cloud-config.iml
+/docker-compose/default/.env
+/docker-compose/prod/.env
+/docker-compose/qa/.env
+/.idea/section8.iml
