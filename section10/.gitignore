@@ -1,0 +1,4 @@
+/docker-compose/qa/.env
+/docker-compose/prod/.env
+/docker-compose/default/.env
+/.idea/
