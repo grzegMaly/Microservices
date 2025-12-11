@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+loans:
+  message: "Welcome to Bank loans related PROD APIs "
+  contactDetails:
+    name: "Mordinia PROD - Developer"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 345645634
+    - 23425345
