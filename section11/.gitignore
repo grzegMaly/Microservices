@@ -13,3 +13,4 @@
 /docker-compose/prod/.env
 /docker-compose/default/.env
 /.idea/sqldialects.xml
+/docker-compose/default/.data/
