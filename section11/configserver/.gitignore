@@ -36,3 +36,4 @@ build/
 /mvnw.cmd
 /.mvn/wrapper/maven-wrapper.properties
 /.env
+/docker-compose/observability/otel/opentelemetry-javaagent.jar
