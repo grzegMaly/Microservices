@@ -1,6 +1,5 @@
 server:
   port: 8080
-
 spring:
   application:
     name: accounts
@@ -45,6 +44,9 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 eureka:
   instance:
@@ -63,6 +65,8 @@ info:
 logging:
   level:
     com.eazybytes.accounts: debug
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
 resilience4j:
   circuitbreaker:
