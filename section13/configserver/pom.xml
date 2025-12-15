@@ -81,7 +81,7 @@
                 <version>3.5.1</version>
                 <configuration>
                     <to>
-                        <image>mordiniaa/${project.artifactId}:s12</image>
+                        <image>mordiniaa/${project.artifactId}:s13</image>
                     </to>
                 </configuration>
             </plugin>
