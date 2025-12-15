@@ -1,4 +1,23 @@
 services:
+  rabbit:
+    hostname: rabbitmq
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: unless-stopped
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.7
     command: ["start-dev"]
@@ -226,8 +245,20 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  message:
+    image: mordiniaa/message:s13
+    container_name: message-container
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
-    image: mordiniaa/configserver:s12
+    image: mordiniaa/configserver:s13
     container_name: configserver-container
     working_dir: /app
     ports:
@@ -247,7 +278,7 @@ services:
       file: common-config.yml
       service: microservice-base-config
   eurekaserver:
-    image: mordiniaa/eurekaserver:s12
+    image: mordiniaa/eurekaserver:s13
     container_name: eurekaserver-container
     working_dir: /app
     ports:
@@ -268,7 +299,7 @@ services:
       SPRING_APPLICATION_NAME: eurekaserver
       OTEL_SERVICE_NAME: eurekaserver
   gatewayserver:
-    image: mordiniaa/gatewayserver:s12
+    image: mordiniaa/gatewayserver:s13
     container_name: gatewayserver-container
     restart: unless-stopped
     working_dir: /app
@@ -292,7 +323,7 @@ services:
       service: microservice-eureka-config
 
   accounts:
-    image: mordiniaa/accounts:s12
+    image: mordiniaa/accounts:s13
     container_name: accounts-container
     restart: unless-stopped
     working_dir: /app
@@ -304,16 +335,19 @@ services:
       start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: accounts
+      SPRING_RABBITMQ_HOST: rabbit
       OTEL_SERVICE_NAME: accounts
     depends_on:
       eurekaserver:
+        condition: service_healthy
+      rabbit:
         condition: service_healthy
     extends:
       file: common-config.yml
       service: microservice-eureka-config
 
   cards:
-    image: mordiniaa/cards:s12
+    image: mordiniaa/cards:s13
     container_name: cards-container
     restart: unless-stopped
     working_dir: /app
@@ -333,7 +367,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   loans:
-    image: mordiniaa/loans:s12
+    image: mordiniaa/loans:s13
     container_name: loans-container
     restart: unless-stopped
     working_dir: /app
