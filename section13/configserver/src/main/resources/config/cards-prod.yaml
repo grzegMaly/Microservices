@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome to Bank cards related PROD APIs "
+  contactDetails:
+    name: "Mordinia Cards PROD - Developer"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 346556345
+    - 234567345
