@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to Bank accounts related PROD APIs"
+  contactDetails:
+    name: "Mordinia - Dev"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 234234234
+    - 432432432
