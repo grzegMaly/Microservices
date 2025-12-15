@@ -2,6 +2,7 @@ package com.eazybytes.accounts.services;
 
 import com.eazybytes.accounts.constants.AccountConstants;
 import com.eazybytes.accounts.dto.AccountsDto;
+import com.eazybytes.accounts.dto.AccountsMsgDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.entity.Accounts;
 import com.eazybytes.accounts.entity.Customer;
@@ -12,11 +13,14 @@ import com.eazybytes.accounts.mappers.CustomerMapper;
 import com.eazybytes.accounts.repositories.AccountsRepository;
 import com.eazybytes.accounts.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Random;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -26,6 +30,20 @@ public class AccountServiceImpl implements AccountService {
     private final CustomerMapper customerMapper;
     private final AccountConstants accountConstants;
     private final AccountsMapper accountsMapper;
+    private final StreamBridge streamBridge;
+
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if (accountNumber != null) {
+            Accounts account = accountsRepository.findByAccountNumber(accountNumber)
+                    .orElseThrow(() -> new ResourceNotFoundException("Account", "AccountNumber", String.valueOf(accountNumber)));
+            account.setCommunicationSw(true);
+            accountsRepository.save(account);
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
 
     @Override
     public void createAccount(CustomerDto customerDto) {
@@ -37,7 +55,16 @@ public class AccountServiceImpl implements AccountService {
         }
 
         Customer savedCustomer = customerRepository.save(customer);
-        accountsRepository.save(createNewAccount(savedCustomer));
+        Accounts savedAccount = accountsRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccount, savedCustomer);
+    }
+
+    private void sendCommunication(Accounts account, Customer customer) {
+        AccountsMsgDto accMsgDto =
+                new AccountsMsgDto(account.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber());
+        log.info("Sending Communication request for the details: {}", accMsgDto);
+        boolean result = streamBridge.send("sendCommunication-out-0", accMsgDto);
+        log.info("Is the Communication request successfully passed? : {}", result);
     }
 
     @Override
