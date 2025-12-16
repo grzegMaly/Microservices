@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to Bank loans related QA APIs "
+  contactDetails:
+    name: "Mordinia QA - Developer"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 453456234
+    - 345346545

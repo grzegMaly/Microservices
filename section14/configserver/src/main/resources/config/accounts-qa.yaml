@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Bank accounts related QA APIs"
+  contactDetails:
+    name: "Mordinia - Dev"
+    email: "mordinia@mordinia.com"
+  onCallSupport:
+    - 345345345
+    - 543543453
