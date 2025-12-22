@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loans
+  labels:
+    app: loans
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loans
+  template:
+    metadata:
+      labels:
+        app: loans
+    spec:
+      containers:
+        - name: loans
+          image: mordiniaa/loans:s12
+          ports:
+            - containerPort: 8090
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  key: SPRING_PROFILES_ACTIVE
+                  name: bank-configmap
+            - name: SPRING_CONFIG_IMPORT
+              valueFrom:
+                configMapKeyRef:
+                  key: SPRING_CONFIG_IMPORT
+                  name: bank-configmap
+            - name: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+              valueFrom:
+                configMapKeyRef:
+                  key: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+                  name: bank-configmap
+            - name: SPRING_APPLICATION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: LOANS_APPLICATION_NAME
+                  name: bank-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loans
+spec:
+  selector:
+    app: loans
+  type: LoadBalancer
+  ports:
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP

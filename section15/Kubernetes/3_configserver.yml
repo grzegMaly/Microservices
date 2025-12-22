@@ -16,14 +16,30 @@ spec:
     spec:
       containers:
         - name: configserver
-          image: mordiniaa/configserver:s14
+          image: mordiniaa/configserver:s12
           ports:
             - containerPort: 8071
-          envFrom:
-            - configMapRef:
-                name: configserver-env
-            - configMapRef:
-                name: bank-configmap
+          env:
+            - name: CS_ENCRYPTION_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: CS_ENCRYPTION_KEY
+                  name: configserver-env
+            - name: GIT_CONFIG_BRANCH
+              valueFrom:
+                configMapKeyRef:
+                  key: GIT_CONFIG_BRANCH
+                  name: configserver-env
+            - name: GIT_CONFIG_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: GIT_CONFIG_URL
+                  name: configserver-env
+            - name: SPRING_APPLICATION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: CONFIGSERVER_APPLICATION_NAME
+                  name: bank-configmap
 ---
 apiVersion: v1
 kind: Service
