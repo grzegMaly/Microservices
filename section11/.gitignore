@@ -15,6 +15,3 @@
 /.idea/sqldialects.xml
 /docker-compose/default/.data/
 /docker-compose/observability/otel/opentelemetry-javaagent.jar
-/build.sh
-/start.sh
-/stop.sh
