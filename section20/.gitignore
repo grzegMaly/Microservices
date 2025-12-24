@@ -3,9 +3,5 @@
 /docker-compose/default/.env
 /docker-compose/default/.data/
 /docker-compose/observability/otel/opentelemetry-javaagent.jar
-/build.sh
-/start.sh
-/stop.sh
 /.idea/
-/buildAndStart.sh
 /bank-bom/common/.mvn/
